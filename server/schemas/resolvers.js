@@ -3,19 +3,12 @@ const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
-    // Query: {
-    //   test: () => 1,
-    // },
     Mutation: {
-      createUser: async (parent, args) => {
+      addUser: async (parent, args) => {
         try {
         console.log(args)
         const user = await User.create(args);
-        const token = await signToken({
-          _id: user._id,
-          email: user.email,
-          username: user.username,
-        });
+        const token = await signToken(user);
         return { token, user };
         }
         catch (error) {
