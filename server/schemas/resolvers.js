@@ -16,14 +16,19 @@ const resolvers = {
         }
       },
 
-      addBook: (parent, addBook) => {
-        console.log('🚀 newPost id', addBook.book._id);
-        User.savedBooks.push(addBook.book._id);
-        const result = {
-          success: true,
-          book: addBook.book,
-        };
-        return result;
+      saveBook: async (parent, { book }, context) => {
+        console.log(context.user)
+        console.log(book)
+        if (context.user) {
+          return await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $push: { savedBooks: { book } } },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+        }
       },
 
       login: async (parent, { email, password }) => {
