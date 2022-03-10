@@ -24,3 +24,20 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const ADD_BOOK = gql`
+  mutation addBook($_id: BookData!) {
+    addBook(_id: $_id) {
+        token {
+        _id: ID
+        authors: [String]
+        description: String!
+        image: String
+        link: String
+        bookId: String!
+        title: String!
+        }
+      }
+    }
+  }
+`;

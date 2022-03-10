@@ -16,6 +16,16 @@ const resolvers = {
         }
       },
 
+      addBook: (parent, addBook) => {
+        console.log('🚀 newPost id', addBook.book._id);
+        User.savedBooks.push(addBook.book._id);
+        const result = {
+          success: true,
+          book: addBook.book,
+        };
+        return result;
+      },
+
       login: async (parent, { email, password }) => {
         const user = await User.findOne({ email });
   
